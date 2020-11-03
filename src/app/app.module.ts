@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { AppComponent } from './app.component';
 import { ListComponent } from './order/list/list.component';
 import { HeadComponent } from './header/head/head.component';
@@ -20,7 +22,8 @@ import { ProductsComponent } from "./product/list/list.component";
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

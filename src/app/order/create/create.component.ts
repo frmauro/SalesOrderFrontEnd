@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
-//import { ProductsComponent } from "../../product/list/list.component";
 import { Product } from "../../models/Product";
+import { Order } from "../../models/Order";
+import { Item } from "../../models/Item";
 
 @Component({
   selector: 'app-create',
@@ -9,24 +11,50 @@ import { Product } from "../../models/Product";
   styleUrls: ['./create.component.css']
 })
 export class CreateComponent implements OnInit {
+  formOrder: FormGroup;
 
   selectedProduct: Product; 
   products: Product[] = [];
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.createForm(new Order());
   }
 
   receiveProduct($event) {
     this.selectedProduct = $event
     this.products.push(this.selectedProduct);
-    //console.log(this.selectedProduct);
   }
 
   deleteProduct(product): void{
     const index = this.products.indexOf( product );
     this.products.splice(index, 1);
+  }
+
+  onSubmit() {
+    let currentOrder = this.formOrder.value as Order;
+
+    this.products.forEach(product => {
+        let item = new Item();
+        item.description = this.selectedProduct.description;
+        item.price = this.selectedProduct.price;
+        item.productId = this.selectedProduct.id;
+        item.quantity = this.selectedProduct.amount;
+        currentOrder.items.push(item);
+    });
+
+    console.log(currentOrder);
+    this.createForm(new Order());
+  }
+
+  createForm(order: Order){
+    this.formOrder = this.formBuilder.group({
+        description: [order.description],
+        status: [order.status],
+        userId: [order.userId],
+        items: this.formBuilder.array([])
+    })
   }
 
 }

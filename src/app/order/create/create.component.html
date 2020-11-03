@@ -1,11 +1,12 @@
-<form>
+<form [formGroup]="formOrder" (ngSubmit)="onSubmit()">
+
     <div class="form-group">
       <label for="description">Description</label>
-      <input type="text" class="form-control" id="description" placeholder="description">
+      <input type="text" class="form-control" id="description" formControlName="description" placeholder="description">
     </div>
     <div class="form-group">
       <label for="status">Status</label>
-      <select class="form-control" id="status">
+      <select class="form-control" id="status" formControlName="status">
         <option>WAITING_PAYMENT</option>
         <option>PAID</option>
         <option>SHIPPED</option>
