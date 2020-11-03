@@ -22,12 +22,16 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">Description</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let product of products">
             <th scope="row">{{product.id}}</th>
             <td>{{product.description}}</td>
+            <td>
+               <button class="btn btn-danger" (click)="deleteProduct(product)">Delete</button> 
+            </td>
           </tr>
         </tbody>
       </table>

@@ -24,4 +24,9 @@ export class CreateComponent implements OnInit {
     //console.log(this.selectedProduct);
   }
 
+  deleteProduct(product): void{
+    const index = this.products.indexOf( product );
+    this.products.splice(index, 1);
+  }
+
 }
