@@ -1,8 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { Product } from '../../models/Product';
-import { ProductStatus } from '../../models/ProductStatus';
-
 import { ProductService } from "../../product.service";
 
 @Component({
