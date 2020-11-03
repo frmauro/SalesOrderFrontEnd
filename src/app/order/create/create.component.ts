@@ -11,6 +11,7 @@ import { Product } from "../../models/Product";
 export class CreateComponent implements OnInit {
 
   selectedProduct: Product; 
+  products: Product[] = [];
 
   constructor() { }
 
@@ -19,7 +20,8 @@ export class CreateComponent implements OnInit {
 
   receiveProduct($event) {
     this.selectedProduct = $event
-    console.log(this.selectedProduct);
+    this.products.push(this.selectedProduct);
+    //console.log(this.selectedProduct);
   }
 
 }
