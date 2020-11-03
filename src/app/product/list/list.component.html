@@ -1,6 +1,4 @@
 <h2>Products</h2>
 <ul class="products">
-  <li *ngFor="let product of products">
-      <span class="badge">{{product.id}}</span> {{product.description}}
-  </li>
+  <li *ngFor="let product of products" (click)="getProduct(product)">{{product.description}}</li>
 </ul>
