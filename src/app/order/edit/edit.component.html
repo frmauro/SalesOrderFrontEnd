@@ -1,4 +1,4 @@
-<form>
+<form [formGroup]="formOrder" >
     <div class="form-group">
       <label for="description">Description</label>
       <input type="text" class="form-control" id="description" placeholder="description">
@@ -16,6 +16,7 @@
     <hr />
     <h3>Selected products</h3>
     <table class="table">
+      <caption>Selected products</caption>
         <thead class="thead-dark">
           <tr>
             <th scope="col">#</th>
