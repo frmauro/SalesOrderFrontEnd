@@ -22,4 +22,8 @@ export class OrderService {
     return of(ORDERS);
   }
 
+  getOrderById(id: number): Observable<Order>{
+    let order = ORDERS.find(o =>o.id === id);
+    return of(order);
+  }
 }

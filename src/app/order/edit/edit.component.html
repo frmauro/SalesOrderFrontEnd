@@ -1,16 +1,12 @@
 <form [formGroup]="formOrder" >
     <div class="form-group">
       <label for="description">Description</label>
-      <input type="text" class="form-control" id="description" placeholder="description">
+      <input type="text" class="form-control" id="description" formControlName="description" placeholder="description">
     </div>
     <div class="form-group">
       <label for="status">Status</label>
-      <select class="form-control" id="status">
-        <option>WAITING_PAYMENT</option>
-        <option>PAID</option>
-        <option>SHIPPED</option>
-        <option>DELIVERED</option>
-        <option>CANCELED</option>
+      <select class="form-control" id="status" formControlName="status">
+        <option *ngFor="let s of listStatus" >{{ s }}</option>
       </select>
     </div>
     <hr />
@@ -25,10 +21,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Product 001</td>
-            <td>2</td>
+          <tr *ngFor="let product of products">
+            <th scope="row">{{product.id}}</th>
+            <td>{{product.description}}</td>
+            <td>
+               <button class="btn btn-danger" (click)="deleteProduct(product)">Delete</button> 
+            </td>
           </tr>
         </tbody>
       </table>

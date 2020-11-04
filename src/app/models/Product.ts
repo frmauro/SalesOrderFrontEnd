@@ -1,6 +1,6 @@
 import { ProductStatus } from "../models/ProductStatus";
 
-export interface Product{
+export class Product{
     id: number;
     description: string;
     amount: number;
