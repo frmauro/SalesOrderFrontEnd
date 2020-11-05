@@ -24,17 +24,23 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">Description</th>
+            <th scope="col">Quantity</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let product of products">
-            <th scope="row">{{product.id}}</th>
-            <td>{{product.description}}</td>
+         <div formArrayName="items">
+          <tr *ngFor="let item of items; index as i">
+            <th scope="row">{{item.id}}</th>
+            <td>{{item.description}}</td>
             <td>
-               <button class="btn btn-danger" (click)="deleteProduct(product)">Delete</button> 
+              <input type="text" class="form-control" id="quantity" placeholder="quantity">
+            </td>
+            <td>
+               <button class="btn btn-danger" (click)="deleteProduct(item)">Delete</button> 
             </td>
           </tr>
+        </div>
         </tbody>
       </table>
     <button type="submit" class="btn btn-primary">Save</button>
@@ -61,7 +67,6 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
         </div>
       </div>
     </div>

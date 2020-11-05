@@ -10,6 +10,7 @@ import { HeadComponent } from './header/head/head.component';
 import { CreateComponent } from './order/create/create.component';
 import { EditComponent } from './order/edit/edit.component';
 import { ProductsComponent } from "./product/list/list.component";
+import { ModalComponent } from './shared/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ProductsComponent } from "./product/list/list.component";
     HeadComponent,
     CreateComponent,
     EditComponent,
-    ProductsComponent
+    ProductsComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

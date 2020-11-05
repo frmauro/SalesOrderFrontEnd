@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 
 import { Product } from "../../models/Product";
 import { Order } from "../../models/Order";
@@ -24,7 +24,10 @@ export class CreateComponent implements OnInit {
 
   receiveProduct($event) {
     this.selectedProduct = $event
-    this.products.push(this.selectedProduct);
+    this.items.push(new FormControl(
+      { id: this.selectedProduct.id, description: this.selectedProduct.description }
+    ));
+    //this.products.push(this.selectedProduct);
   }
 
   deleteProduct(product): void{
@@ -57,4 +60,9 @@ export class CreateComponent implements OnInit {
     })
   }
 
+  get items(): FormArray {
+    return this.formOrder.get('items') as FormArray;
+  }
+
+  
 }
