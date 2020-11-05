@@ -30,11 +30,11 @@
         </thead>
         <tbody>
          <div formArrayName="items">
-          <tr *ngFor="let item of items; index as i">
-            <th scope="row">{{item.id}}</th>
-            <td>{{item.description}}</td>
+          <tr *ngFor="let item of items.controls; index as i">
+            <th scope="row">{{items.controls[i].value.id}}</th>
+            <td>{{items.controls[i].value.description}}</td>
             <td>
-              <input type="text" class="form-control" id="quantity" placeholder="quantity">
+              <input type="text"  class="form-control" id="quantity" placeholder="quantity">
             </td>
             <td>
                <button class="btn btn-danger" (click)="deleteProduct(item)">Delete</button> 

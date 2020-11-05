@@ -24,10 +24,11 @@ export class CreateComponent implements OnInit {
 
   receiveProduct($event) {
     this.selectedProduct = $event
-    this.items.push(new FormControl(
-      { id: this.selectedProduct.id, description: this.selectedProduct.description }
-    ));
-    //this.products.push(this.selectedProduct);
+    this.items.push( 
+      new FormControl(
+        { id: this.selectedProduct.id, description: this.selectedProduct.description, quantity: this.selectedProduct.amount }
+       )
+     );
   }
 
   deleteProduct(product): void{
