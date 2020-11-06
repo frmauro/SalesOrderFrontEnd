@@ -21,12 +21,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let product of products">
-            <th scope="row">{{product.id}}</th>
-            <td>{{product.description}}</td>
-            <td>
-               <button class="btn btn-danger" (click)="deleteProduct(product)">Delete</button> 
-            </td>
+          <tr formArrayName="items" *ngFor="let item of items.controls; let i = index;">
+            <div [formGroupName]="i">
+                <th scope="row">{{id}}</th>
+                <td>{{description}}</td>
+                <td>
+                    <input type="text" formControlName="quantity" class="form-control" id="quantity" placeholder="quantity">
+                </td>
+                <td>
+                  <button class="btn btn-danger" (click)="deleteProduct(i)">Delete</button> 
+                </td>
+          </div>
           </tr>
         </tbody>
       </table>

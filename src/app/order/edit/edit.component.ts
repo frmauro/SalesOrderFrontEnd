@@ -6,7 +6,7 @@ import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Product } from "../../models/Product";
 import { Order } from "../../models/Order";
 import { OrderService } from "../../order.service";
-import { Item } from "../../models/Item";
+
 
 @Component({
   selector: 'app-edit',
@@ -15,7 +15,6 @@ import { Item } from "../../models/Item";
 })
 export class EditComponent implements OnInit {
   formOrder: FormGroup;
-  selectedProduct: Product; 
   products: Product[] = [];
   order: Order;
 
@@ -33,27 +32,20 @@ export class EditComponent implements OnInit {
     this.orderService.getOrderById(id)
     .subscribe(o => {
       this.order = o;
-      this.order.items.forEach(item => {
-        let product = new Product();
-        product.description = item.description;
-        product.price = item.price;
-        product.id = item.productId;
-        product.amount = item.quantity;
-        this.products.push(product);
-    });
-      //console.log(this.order);
       this.createForm(this.order);
+      this.order.items.forEach(item => {
+        this.items.push(this.createItem(item.productId.toString(), item.description, item.quantity.toString()));
+       });
+       console.log(this.items);
     });
   }
 
-  receiveProduct($event) {
-    this.selectedProduct = $event
-    this.items.push(this.createItem(this.selectedProduct.id.toString(), this.selectedProduct.description, this.selectedProduct.amount.toString()));
+  receiveProduct($event: Product) {
+    this.items.push(this.createItem($event.id.toString(), $event.description, $event.amount.toString()));
   }
 
-  deleteProduct(product): void{
-    const index = this.products.indexOf( product );
-    this.products.splice(index, 1);
+  deleteProduct(index: number): void{
+    this.items.removeAt(index);
   }
 
 

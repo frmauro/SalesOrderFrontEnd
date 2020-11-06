@@ -19,7 +19,7 @@ export class CreateComponent implements OnInit {
     this.createForm(new Order());
   }
 
-  receiveProduct($event) {
+  receiveProduct($event: Product) {
     this.items.push(this.createItem($event.id.toString(), $event.description, $event.amount.toString()));
      console.log(this.items);
   }
