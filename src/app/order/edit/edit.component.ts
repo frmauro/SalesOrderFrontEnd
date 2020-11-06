@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 
 import { Product } from "../../models/Product";
 import { Order } from "../../models/Order";
@@ -48,7 +48,7 @@ export class EditComponent implements OnInit {
 
   receiveProduct($event) {
     this.selectedProduct = $event
-    this.products.push(this.selectedProduct);
+    this.items.push(this.createItem(this.selectedProduct.id.toString(), this.selectedProduct.description, this.selectedProduct.amount.toString()));
   }
 
   deleteProduct(product): void{
@@ -66,18 +66,20 @@ export class EditComponent implements OnInit {
     })
   }
 
+  createItem(id: string, description: string, quantity: string): FormGroup {
+    return this.formBuilder.group({
+      id: id,
+      description: description,
+      quantity: quantity
+    });
+  }
+
+  get items(): FormArray {
+    return this.formOrder.get('items') as FormArray;
+  }
+
   onSubmit() {
     let currentOrder = this.formOrder.value as Order;
-
-    this.products.forEach(product => {
-        let item = new Item();
-        item.description = this.selectedProduct.description;
-        item.price = this.selectedProduct.price;
-        item.productId = this.selectedProduct.id;
-        item.quantity = this.selectedProduct.amount;
-        currentOrder.items.push(item);
-    });
-
     console.log(currentOrder);
     this.createForm(new Order());
   }

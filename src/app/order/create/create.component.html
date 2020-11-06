@@ -29,7 +29,6 @@
           </tr>
         </thead>
         <tbody>
-         <div>
           <tr formArrayName="items" *ngFor="let item of items.controls; let i = index;">
             <div [formGroupName]="i">
                 <th scope="row">{{id}}</th>
@@ -38,11 +37,10 @@
                     <input type="text" formControlName="quantity" class="form-control" id="quantity" placeholder="quantity">
                 </td>
                 <td>
-                  <button class="btn btn-danger" (click)="deleteProduct(item)">Delete</button> 
+                  <button class="btn btn-danger" (click)="deleteProduct(i)">Delete</button> 
                 </td>
           </div>
           </tr>
-        </div>
         </tbody>
       </table>
     <button type="submit" class="btn btn-primary">Save</button>
