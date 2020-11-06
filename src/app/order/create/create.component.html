@@ -29,16 +29,18 @@
           </tr>
         </thead>
         <tbody>
-         <div formArrayName="items">
-          <tr *ngFor="let item of items.controls; index as i">
-            <th scope="row">{{items.controls[i].value.id}}</th>
-            <td>{{items.controls[i].value.description}}</td>
-            <td>
-              <input type="text"  class="form-control" id="quantity" placeholder="quantity">
-            </td>
-            <td>
-               <button class="btn btn-danger" (click)="deleteProduct(item)">Delete</button> 
-            </td>
+         <div>
+          <tr formArrayName="items" *ngFor="let item of items.controls; let i = index;">
+            <div [formGroupName]="i">
+                <th scope="row">{{id}}</th>
+                <td>{{description}}</td>
+                <td>
+                    <input type="text" formControlName="quantity" class="form-control" id="quantity" placeholder="quantity">
+                </td>
+                <td>
+                  <button class="btn btn-danger" (click)="deleteProduct(item)">Delete</button> 
+                </td>
+          </div>
           </tr>
         </div>
         </tbody>

@@ -24,11 +24,8 @@ export class CreateComponent implements OnInit {
 
   receiveProduct($event) {
     this.selectedProduct = $event
-    this.items.push( 
-      new FormControl(
-        { id: this.selectedProduct.id, description: this.selectedProduct.description, quantity: this.selectedProduct.amount }
-       )
-     );
+    this.items.push(this.createItem(this.selectedProduct.id.toString(), this.selectedProduct.description, this.selectedProduct.amount.toString()));
+     console.log(this.items);
   }
 
   deleteProduct(product): void{
@@ -39,14 +36,14 @@ export class CreateComponent implements OnInit {
   onSubmit() {
     let currentOrder = this.formOrder.value as Order;
 
-    this.products.forEach(product => {
-        let item = new Item();
-        item.description = this.selectedProduct.description;
-        item.price = this.selectedProduct.price;
-        item.productId = this.selectedProduct.id;
-        item.quantity = this.selectedProduct.amount;
-        currentOrder.items.push(item);
-    });
+    // this.products.forEach(product => {
+    //     let item = new Item();
+    //     item.description = this.selectedProduct.description;
+    //     item.price = this.selectedProduct.price;
+    //     item.productId = this.selectedProduct.id;
+    //     item.quantity = this.selectedProduct.amount;
+    //     currentOrder.items.push(item);
+    // });
 
     console.log(currentOrder);
     this.createForm(new Order());
@@ -59,6 +56,15 @@ export class CreateComponent implements OnInit {
         userId: [order.userId],
         items: this.formBuilder.array([])
     })
+  }
+
+
+  createItem(id: string, description: string, quantity: string): FormGroup {
+    return this.formBuilder.group({
+      id: id,
+      description: description,
+      quantity: quantity
+    });
   }
 
   get items(): FormArray {
