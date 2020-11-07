@@ -10,11 +10,13 @@ import { PRODUCTS } from "./models/mockProduct";
 })
 export class ProductService {
 
+  private productsUrl = 'http://localhost:8087/Product';  // URL to web api
+
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   getProducts(): Observable<Product[]> {
     return of(PRODUCTS);

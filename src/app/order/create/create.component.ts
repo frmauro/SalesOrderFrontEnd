@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { Location } from "@angular/common";
 
 import { Product } from "../../models/Product";
 import { Order } from "../../models/Order";
+import { OrderService } from "../../order.service";
 
 @Component({
   selector: 'app-create',
@@ -13,7 +15,10 @@ export class CreateComponent implements OnInit {
   formOrder: FormGroup;
   products: Product[] = [];
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private formBuilder: FormBuilder, 
+    private orderService: OrderService,
+    private location: Location) { }
 
   ngOnInit(): void {
     this.createForm(new Order());
@@ -30,7 +35,9 @@ export class CreateComponent implements OnInit {
 
   onSubmit() {
     let currentOrder = this.formOrder.value as Order;
-    console.log(currentOrder);
+    currentOrder.userId = 1;
+    //console.log(currentOrder);
+    this.orderService.addOrder(currentOrder).subscribe(() => this.goBack());
     this.createForm(new Order());
   }
 
@@ -54,6 +61,10 @@ export class CreateComponent implements OnInit {
 
   get items(): FormArray {
     return this.formOrder.get('items') as FormArray;
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
   
