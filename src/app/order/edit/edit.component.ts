@@ -34,14 +34,14 @@ export class EditComponent implements OnInit {
       this.order = o;
       this.createForm(this.order);
       this.order.items.forEach(item => {
-        this.items.push(this.createItem(item.productId.toString(), item.description, item.quantity.toString()));
+        this.items.push(this.createItem(item.productId.toString(), item.description, item.quantity.toString(), item.productId.toString(), item.price));
        });
        console.log(this.items);
     });
   }
 
   receiveProduct($event: Product) {
-    this.items.push(this.createItem($event.id.toString(), $event.description, $event.amount.toString()));
+    this.items.push(this.createItem($event.id.toString(), $event.description, $event.amount.toString(), $event.id.toString(), $event.price));
   }
 
   deleteProduct(index: number): void{
@@ -52,17 +52,19 @@ export class EditComponent implements OnInit {
   createForm(order: Order){
     this.formOrder = this.formBuilder.group({
         description: [order.description],
-        status: [order.status],
+        orderStatus: [order.status],
         userId: [order.userId],
         items: this.formBuilder.array([])
     })
   }
 
-  createItem(id: string, description: string, quantity: string): FormGroup {
+  createItem(id: string, description: string, quantity: string, productId: string, price: string): FormGroup {
     return this.formBuilder.group({
       id: id,
       description: description,
-      quantity: quantity
+      quantity: quantity,
+      productId: productId,
+      price: price
     });
   }
 
@@ -72,8 +74,13 @@ export class EditComponent implements OnInit {
 
   onSubmit() {
     let currentOrder = this.formOrder.value as Order;
-    console.log(currentOrder);
+    //console.log(currentOrder);
+    this.orderService.updateOrder(currentOrder).subscribe(() => this.goBack());
     this.createForm(new Order());
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
 }

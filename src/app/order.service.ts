@@ -44,6 +44,15 @@ addOrder(order: Order): Observable<Order> {
   );
 }
 
+/** PUT: update the order on the server */
+updateOrder(order: Order): Observable<any> {
+  //console.log(order);
+  return this.http.put(this.orderUrl, order, this.httpOptions).pipe(
+    tap(_ => this.log(`updated order id=${order.id}`)),
+    catchError(this.handleError<any>('updateOrder'))
+  );
+}
+
   /** Log a OrderService message with the MessageService */
   private log(message: string) {
     //this.messageService.add(`orderService: ${message}`);

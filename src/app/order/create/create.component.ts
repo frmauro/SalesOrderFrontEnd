@@ -25,7 +25,7 @@ export class CreateComponent implements OnInit {
   }
 
   receiveProduct($event: Product) {
-    this.items.push(this.createItem($event.id.toString(), $event.description, $event.amount.toString(), $event.id.toString()));
+    this.items.push(this.createItem($event.id.toString(), $event.description, $event.amount.toString(), $event.id.toString(), $event.price));
      //console.log(this.items);
   }
 
@@ -44,19 +44,20 @@ export class CreateComponent implements OnInit {
   createForm(order: Order){
     this.formOrder = this.formBuilder.group({
         description: [order.description],
-        status: [order.status],
+        orderStatus: [order.status],
         userId: [order.userId],
         items: this.formBuilder.array([])
     })
   }
 
 
-  createItem(id: string, description: string, quantity: string, productId: string): FormGroup {
+  createItem(id: string, description: string, quantity: string, productId: string, price: string): FormGroup {
     return this.formBuilder.group({
       id: id,
       description: description,
       quantity: quantity,
-      productId: productId
+      productId: productId,
+      price: price
     });
   }
 

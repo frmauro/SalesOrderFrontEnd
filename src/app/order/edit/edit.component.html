@@ -5,8 +5,8 @@
     </div>
     <div class="form-group">
       <label for="status">Status</label>
-      <select class="form-control" id="status" formControlName="status">
-        <option *ngFor="let s of listStatus" >{{ s }}</option>
+      <select class="form-control" id="status" formControlName="orderStatus">
+        <option *ngFor="let s of listStatus" [ngValue]="s" >{{ s }}</option>
       </select>
     </div>
     <hr />
