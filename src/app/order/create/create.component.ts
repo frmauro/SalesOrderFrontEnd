@@ -25,7 +25,7 @@ export class CreateComponent implements OnInit {
   }
 
   receiveProduct($event: Product) {
-    this.items.push(this.createItem($event.id.toString(), $event.description, $event.amount.toString()));
+    this.items.push(this.createItem($event.id.toString(), $event.description, $event.amount.toString(), $event.id.toString()));
      //console.log(this.items);
   }
 
@@ -36,8 +36,8 @@ export class CreateComponent implements OnInit {
   onSubmit() {
     let currentOrder = this.formOrder.value as Order;
     currentOrder.userId = 1;
-    console.log(currentOrder);
-    //this.orderService.addOrder(currentOrder).subscribe(() => this.goBack());
+    //console.log(currentOrder);
+    this.orderService.addOrder(currentOrder).subscribe(() => this.goBack());
     this.createForm(new Order());
   }
 
@@ -51,11 +51,12 @@ export class CreateComponent implements OnInit {
   }
 
 
-  createItem(id: string, description: string, quantity: string): FormGroup {
+  createItem(id: string, description: string, quantity: string, productId: string): FormGroup {
     return this.formBuilder.group({
       id: id,
       description: description,
-      quantity: quantity
+      quantity: quantity,
+      productId: productId
     });
   }
 
