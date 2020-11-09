@@ -28,7 +28,7 @@ export class ProductsComponent implements OnInit {
 
   getProduct(product): void{
     this.selectedProductEvent.emit(product);
-      //console.log(product);
+    //console.log(product);
   }
 
 }
