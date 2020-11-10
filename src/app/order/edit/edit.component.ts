@@ -19,13 +19,14 @@ export class EditComponent implements OnInit {
   products: Product[] = [];
   order: Order;
 
-  listStatus: ItemStatus[] = [
-                new ItemStatus(1, "WAITING_PAYMENT"),
-                new ItemStatus(2, "PAID"),
-                new ItemStatus(3, "SHIPPED"),
-                new ItemStatus(4, "DELIVERED"),
-                new ItemStatus(5, "CANCELED"),
-              ];
+  listStatus: ItemStatus[] =   [
+      new ItemStatus(1, "WAITING_PAYMENT"),
+      new ItemStatus(2, "PAID"),
+      new ItemStatus(3, "SHIPPED"),
+      new ItemStatus(4, "DELIVERED"),
+      new ItemStatus(5, "CANCELED"),
+    ];
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -41,7 +42,15 @@ export class EditComponent implements OnInit {
     .subscribe(o => {
       this.order = o;
       console.log(this.order);
+
       this.createForm(this.order);
+
+      this.listStatus.forEach(s => {
+          this.bagStatus.push(this.createItemStatus(s.value, s.text));
+      });
+
+      //this.formOrder.controls.listStatus.patchValue(this.order.status);
+
       this.order.items.forEach(item => {
         this.items.push(this.createItem(item.productId.toString(), item.description, item.quantity.toString(), item.productId.toString(), item.price));
        });
@@ -63,6 +72,7 @@ export class EditComponent implements OnInit {
         description: [order.description],
         orderStatus: [order.status],
         userId: [order.userId],
+        listStatus: this.formBuilder.array([]),
         items: this.formBuilder.array([])
     })
   }
@@ -77,8 +87,19 @@ export class EditComponent implements OnInit {
     });
   }
 
+  createItemStatus(value: number, text: string): FormGroup {
+    return this.formBuilder.group({
+      value: value,
+      text: text
+    });
+  }
+
   get items(): FormArray {
     return this.formOrder.get('items') as FormArray;
+  }
+
+  get bagStatus(): FormArray {
+    return this.formOrder.get('listStatus') as FormArray;
   }
 
   onSubmit() {
