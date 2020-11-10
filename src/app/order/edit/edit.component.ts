@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Product } from "../../models/Product";
 import { Order } from "../../models/Order";
 import { OrderService } from "../../order.service";
+import { ItemStatus } from "../../models/ItemStatus";
 
 
 @Component({
@@ -18,7 +19,13 @@ export class EditComponent implements OnInit {
   products: Product[] = [];
   order: Order;
 
-  listStatus: string[] = ["WAITING_PAYMENT", "PAID", "SHIPPED", "DELIVERED", "CANCELED"];
+  listStatus: ItemStatus[] = [
+                new ItemStatus(1, "WAITING_PAYMENT"),
+                new ItemStatus(2, "PAID"),
+                new ItemStatus(3, "SHIPPED"),
+                new ItemStatus(4, "DELIVERED"),
+                new ItemStatus(5, "CANCELED"),
+              ];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,14 +36,16 @@ export class EditComponent implements OnInit {
 
   ngOnInit(): void {
     const id = +this.route.snapshot.paramMap.get('id');
+
     this.orderService.getOrderById(id)
     .subscribe(o => {
       this.order = o;
+      console.log(this.order);
       this.createForm(this.order);
       this.order.items.forEach(item => {
         this.items.push(this.createItem(item.productId.toString(), item.description, item.quantity.toString(), item.productId.toString(), item.price));
        });
-       console.log(this.items);
+       //console.log(this.items);
     });
   }
 

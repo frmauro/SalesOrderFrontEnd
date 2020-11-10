@@ -1,4 +1,4 @@
-<form [formGroup]="formOrder" (ngSubmit)="onSubmit()" >
+<form *ngIf="formOrder" [formGroup]="formOrder" (ngSubmit)="onSubmit()" >
     <div class="form-group">
       <label for="description">Description</label>
       <input type="text" class="form-control" id="description" formControlName="description" placeholder="description">
@@ -6,7 +6,7 @@
     <div class="form-group">
       <label for="status">Status</label>
       <select class="form-control" id="status" formControlName="orderStatus">
-        <option *ngFor="let s of listStatus" [ngValue]="s" >{{ s }}</option>
+        <option *ngFor="let s of listStatus" [value]="s.value" >{{ s.text }}</option>
       </select>
     </div>
     <hr />
