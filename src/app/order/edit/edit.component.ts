@@ -65,6 +65,7 @@ export class EditComponent implements OnInit {
 
   createForm(order: Order){
     this.formOrder = this.formBuilder.group({
+        id: [order.id],
         description: [order.description],
         orderStatus: [order.orderStatus],
         userId: [order.userId],
@@ -92,6 +93,12 @@ export class EditComponent implements OnInit {
     //console.log(currentOrder);
     this.orderService.updateOrder(currentOrder).subscribe(() => this.goBack());
     this.createForm(new Order());
+  }
+
+  // Choose status using select dropdown
+  changeStatus(e) {
+     console.log(e.target);
+     this.formOrder.patchValue(e.target.value);
   }
 
   goBack(): void {
