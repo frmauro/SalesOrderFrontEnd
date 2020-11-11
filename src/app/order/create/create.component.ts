@@ -44,7 +44,7 @@ export class CreateComponent implements OnInit {
   createForm(order: Order){
     this.formOrder = this.formBuilder.group({
         description: [order.description],
-        orderStatus: [order.status],
+        orderStatus: [order.orderStatus],
         userId: [order.userId],
         items: this.formBuilder.array([])
     })

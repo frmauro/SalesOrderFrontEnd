@@ -41,15 +41,11 @@ export class EditComponent implements OnInit {
     this.orderService.getOrderById(id)
     .subscribe(o => {
       this.order = o;
-      console.log(this.order);
-
-      this.createForm(this.order);
-
-      this.listStatus.forEach(s => {
-          this.bagStatus.push(this.createItemStatus(s.value, s.text));
-      });
-
-      //this.formOrder.controls.listStatus.patchValue(this.order.status);
+       //console.log(this.order);
+       this.createForm(this.order);
+      //console.log(this.formOrder);
+      
+      this.formOrder.controls.listStatus.setValue(this.order.orderStatus);
 
       this.order.items.forEach(item => {
         this.items.push(this.createItem(item.productId.toString(), item.description, item.quantity.toString(), item.productId.toString(), item.price));
@@ -70,9 +66,9 @@ export class EditComponent implements OnInit {
   createForm(order: Order){
     this.formOrder = this.formBuilder.group({
         description: [order.description],
-        orderStatus: [order.status],
+        orderStatus: [order.orderStatus],
         userId: [order.userId],
-        listStatus: this.formBuilder.array([]),
+        listStatus: [this.listStatus],//this.formBuilder.array([]),
         items: this.formBuilder.array([])
     })
   }
@@ -87,21 +83,10 @@ export class EditComponent implements OnInit {
     });
   }
 
-  createItemStatus(value: number, text: string): FormGroup {
-    return this.formBuilder.group({
-      value: value,
-      text: text
-    });
-  }
-
   get items(): FormArray {
     return this.formOrder.get('items') as FormArray;
   }
-
-  get bagStatus(): FormArray {
-    return this.formOrder.get('listStatus') as FormArray;
-  }
-
+  
   onSubmit() {
     let currentOrder = this.formOrder.value as Order;
     //console.log(currentOrder);
