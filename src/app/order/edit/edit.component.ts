@@ -97,7 +97,7 @@ export class EditComponent implements OnInit {
 
   // Choose status using select dropdown
   changeStatus(e) {
-     console.log(e.target);
+     //console.log(e.target);
      this.formOrder.patchValue(e.target.value);
   }
 

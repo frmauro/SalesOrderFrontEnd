@@ -47,7 +47,7 @@ addOrder(order: Order): Observable<Order> {
 /** PUT: update the order on the server */
 updateOrder(order: Order): Observable<any> {
   //console.log(order);
-  return this.http.put(this.orderUrl, order, this.httpOptions).pipe(
+  return this.http.put(`${this.orderUrl}/${order.id}`, order, this.httpOptions).pipe(
     tap(_ => this.log(`updated order id=${order.id}`)),
     catchError(this.handleError<any>('updateOrder'))
   );
