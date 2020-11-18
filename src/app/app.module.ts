@@ -12,6 +12,7 @@ import { CreateComponent } from './order/create/create.component';
 import { EditComponent } from './order/edit/edit.component';
 import { ProductsComponent } from "./product/list/list.component";
 import { ModalComponent } from './shared/modal/modal.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ModalComponent } from './shared/modal/modal.component';
     CreateComponent,
     EditComponent,
     ProductsComponent,
-    ModalComponent
+    ModalComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
