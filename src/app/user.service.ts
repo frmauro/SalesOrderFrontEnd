@@ -22,7 +22,17 @@ export class UserService {
 
   getUserByEmailAndPassword(email: string, password: string): Observable<User> {
     const url = `${this.usersUrl}/user`;
-     return this.http.get<User>(url).pipe(
+    let  user = new User();
+    user.email = email;
+    user.password = password;
+
+     return this.http.post<User>(url, user, this.httpOptions).pipe(
+      map(res => {
+        let objJson = JSON.stringify(res);
+        let obj = JSON.parse(objJson);
+        localStorage.setItem('currentUser', JSON.stringify(obj));
+        return obj;
+      }),
       tap(_ => this.log(`fetched user email=${email} password=${password}`)),
       catchError(this.handleError<User>(`getUserByEmailAndPassword email=${email} password=${password}`))
      );
