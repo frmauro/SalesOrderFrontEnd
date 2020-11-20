@@ -28,10 +28,18 @@ export class UserService {
 
      return this.http.post<User>(url, user, this.httpOptions).pipe(
       map(res => {
-        let objJson = JSON.stringify(res);
-        let obj = JSON.parse(objJson);
-        localStorage.setItem('currentUser', JSON.stringify(obj));
-        return obj;
+        //console.log(res);
+         let objJson = JSON.stringify(res);
+         if (objJson === '"user not exists"'){
+              let user = new User();
+              user.status = "user not exists";
+              return user;
+          }else{
+            let listObj = JSON.parse(objJson);
+            let user = listObj[0] as User;
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            return user;
+          }
       }),
       tap(_ => this.log(`fetched user email=${email} password=${password}`)),
       catchError(this.handleError<User>(`getUserByEmailAndPassword email=${email} password=${password}`))
