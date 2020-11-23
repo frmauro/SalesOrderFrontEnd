@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from "rxjs";
+import { Observable, of, BehaviorSubject } from "rxjs";
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { User } from "./models/User";
@@ -11,13 +11,23 @@ import { User } from "./models/User";
 })
 export class UserService {
 
+  private currentUserSubject: BehaviorSubject<User>;
+  public currentUser: Observable<User>;
+
   private usersUrl = 'http://localhost:8088';  // URL to web api
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
+
+  public get currentUserValue(): User {
+    return this.currentUserSubject.value;
+  }
 
 
   getUserByEmailAndPassword(email: string, password: string): Observable<User> {
@@ -31,13 +41,13 @@ export class UserService {
         //console.log(res);
          let objJson = JSON.stringify(res);
          if (objJson === '"user not exists"'){
-              let user = new User();
-              user.status = "user not exists";
-              return user;
+              let currentUser = new User();
+              currentUser.status = "user not exists";
+              return currentUser;
           }else{
             let listObj = JSON.parse(objJson);
-            let user = listObj[0] as User;
-            localStorage.setItem('currentUser', JSON.stringify(user));
+            let currentUser = listObj[0] as User;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
             return user;
           }
       }),
@@ -45,6 +55,12 @@ export class UserService {
       catchError(this.handleError<User>(`getUserByEmailAndPassword email=${email} password=${password}`))
      );
   }
+
+  logout() {
+     // remove user from local storage to log user out
+      localStorage.removeItem('currentUser');
+      this.currentUserSubject.next(null);
+   }
 
 
     /** Log a OrderService message with the MessageService */
