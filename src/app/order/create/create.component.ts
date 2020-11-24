@@ -41,9 +41,13 @@ export class CreateComponent implements OnInit {
     //console.log(currentOrder);
     let products = [];
     currentOrder.items.forEach(p => {
-        let currentProduct = new Product();
-        currentProduct.amount = p.quantity;
-        currentProduct.id = p.productId;
+        let currentProduct = {
+              id: p.productId,
+              description: "",
+              amount: p.quantity,
+              price: "0",
+              status: ""
+        }
         products.push(currentProduct);
     });
 
