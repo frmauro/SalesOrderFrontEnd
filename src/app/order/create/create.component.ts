@@ -5,6 +5,7 @@ import { Location } from "@angular/common";
 import { Product } from "../../models/Product";
 import { Order } from "../../models/Order";
 import { OrderService } from "../../order.service";
+import { ProductService } from "../../product.service";
 
 @Component({
   selector: 'app-create',
@@ -18,6 +19,7 @@ export class CreateComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder, 
     private orderService: OrderService,
+    private productService: ProductService,
     private location: Location) { }
 
   ngOnInit(): void {
@@ -37,7 +39,18 @@ export class CreateComponent implements OnInit {
     let currentOrder = this.formOrder.value as Order;
     currentOrder.userId = 1;
     //console.log(currentOrder);
-    this.orderService.addOrder(currentOrder).subscribe(() => this.goBack());
+    let products = [];
+    currentOrder.items.forEach(p => {
+        let currentProduct = new Product();
+        currentProduct.amount = p.quantity;
+        currentProduct.id = p.productId;
+        products.push(currentProduct);
+    });
+
+    this.orderService.addOrder(currentOrder).subscribe(() => {
+      this.productService.updateAmount(products).subscribe(() => this.goBack())
+    });
+
     this.createForm(new Order());
   }
 

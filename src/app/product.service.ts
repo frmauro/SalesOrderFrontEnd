@@ -37,6 +37,16 @@ export class ProductService {
      );
   }
 
+    /** POST: add a new order to the server */
+updateAmount(products: Product[]): Observable<Product[]> {
+  const url = "http://localhost:8087/UpdateAmount";
+  let arrProducts = JSON.stringify(products);
+  return this.http.post<Product[]>(url, arrProducts, this.httpOptions).pipe(
+    tap((_) => this.log("update amount products")),
+    catchError(this.handleError<Product[]>("updateAmount"))
+  );
+}
+
 
     /** Log a OrderService message with the MessageService */
     private log(message: string) {
