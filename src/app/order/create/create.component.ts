@@ -39,20 +39,21 @@ export class CreateComponent implements OnInit {
     let currentOrder = this.formOrder.value as Order;
     currentOrder.userId = 1;
     //console.log(currentOrder);
-    let products = [];
+    let items: Array<any> = new Array();
+
     currentOrder.items.forEach(p => {
-        let currentProduct = {
-              id: p.productId,
-              description: "",
-              amount: p.quantity,
-              price: "0",
-              status: ""
-        }
-        products.push(currentProduct);
+        let item = {
+          amount : parseInt(p.quantity.toString()),
+          description : "",
+          price : "0",
+          status : "Active",
+          id : parseInt(p.productId.toString())
+        };
+        items.push(item);
     });
 
     this.orderService.addOrder(currentOrder).subscribe(() => {
-      this.productService.updateAmount(products).subscribe(() => this.goBack())
+      this.productService.updateAmount(items).subscribe(() => this.goBack())
     });
 
     this.createForm(new Order());
