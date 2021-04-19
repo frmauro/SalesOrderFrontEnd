@@ -11,7 +11,7 @@ import { Product } from "./models/Product";
 })
 export class ProductService {
 
-  private productsUrl = 'http://localhost:8087/Product';  // URL to web api
+  private productsUrl = 'http://localhost:8070/products';  // URL to web api
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -39,7 +39,7 @@ export class ProductService {
 
     /** POST: add a new order to the server */
 updateAmount(products: Product[]): Observable<Product[]> {
-  const url = "http://localhost:8087/UpdateAmount";
+  const url = "http://localhost:8070/products";
   let arrProducts = JSON.stringify(products);
   return this.http.post<Product[]>(url, arrProducts, this.httpOptions).pipe(
     tap((_) => this.log("update amount products")),

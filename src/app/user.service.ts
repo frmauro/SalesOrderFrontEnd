@@ -14,7 +14,7 @@ export class UserService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
-  private usersUrl = 'http://localhost:8088';  // URL to web api
+  private usersUrl = 'http://localhost:8070';  // URL to web api
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -31,7 +31,7 @@ export class UserService {
 
 
   getUserByEmailAndPassword(email: string, password: string): Observable<User> {
-    const url = `${this.usersUrl}/user`;
+    const url = `${this.usersUrl}/users`;
     let  user = new User();
     user.email = email;
     user.password = password;
