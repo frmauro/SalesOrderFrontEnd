@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm(new User());
+    this.isLogged();
   }
 
   getUserByEmailAndPassword(email: string, password: string): void{
@@ -49,6 +50,15 @@ export class LoginComponent implements OnInit {
       }
     });
     this.createForm(new User());
+  }
+
+
+  isLogged() :void{
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUser) {
+        //authorised so return true
+        this.router.navigate(['/orders']);
+    }
   }
 
 }
