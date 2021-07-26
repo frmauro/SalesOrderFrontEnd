@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private formBuilder: FormBuilder, 
+    private formBuilder: FormBuilder,
     private userService: UserService
     ) { }
 
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
     this.userService.getUserByEmailAndPassword(currentUser.email, currentUser.password)
     .subscribe(obj => {
       //console.log(obj);
-      if (obj.status === "user not exists"){
+      if (obj.token === "" || obj.token === "undefined"){
           this.router.navigate(['/login']);
       }else{
           this.router.navigate(['/orders']);

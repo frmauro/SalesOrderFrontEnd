@@ -20,7 +20,7 @@ export class UserService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -46,8 +46,11 @@ export class UserService {
               return currentUser;
           }else{
             let listObj = JSON.parse(objJson);
-            let currentUser = listObj[0] as User;
+            //let currentUser = listObj[0] as User;
+            let currentUser = listObj as User;
             localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            user.token = currentUser.token;
+            user.id = currentUser.id;
             return user;
           }
       }),
@@ -68,7 +71,7 @@ export class UserService {
       //this.messageService.add(`orderService: ${message}`);
       console.log(`productService: ${message}`);
     }
-  
+
     /**
      * Handle Http operation that failed.
      * Let the app continue.
@@ -79,10 +82,10 @@ export class UserService {
       return (error: any): Observable<T> => {
         // TODO: send the error to remote logging infrastructure
         console.error(error); // log to console instead
-  
+
         // TODO: better job of transforming error for user consumption
         this.log(`${operation} failed: ${error.message}`);
-  
+
         // Let the app keep running by returning an empty result.
         return of(result as T);
       };
