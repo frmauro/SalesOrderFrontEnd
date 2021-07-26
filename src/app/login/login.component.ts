@@ -46,7 +46,10 @@ export class LoginComponent implements OnInit {
       if (obj.token === "" || obj.token === "undefined"){
           this.router.navigate(['/login']);
       }else{
-          this.router.navigate(['/orders']);
+          this.router.navigate(['/orders'])
+            .then(() => {
+              window.location.reload();
+            });
       }
     });
     this.createForm(new User());
