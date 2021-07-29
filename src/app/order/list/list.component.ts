@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Order } from "../../models/Order";
 import { OrderService } from "../../order.service";
+import { OrderVM } from './dto/OrderVM';
 
 @Component({
   selector: 'app-list',
@@ -10,7 +11,8 @@ import { OrderService } from "../../order.service";
 })
 export class ListComponent implements OnInit {
 
-  orders : Order[];
+  //orders : Order[];
+  orders :OrderVM[] = [];
 
   constructor(
     private orderService: OrderService
@@ -18,7 +20,31 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.orderService.getOrders()
-      .subscribe(orders => this.orders = orders );
+      .subscribe(orders => {
+        orders.forEach(order => {
+            var orderVm = new OrderVM();
+            orderVm.description = order.description;
+            orderVm.id = order.id.toString();
+            orderVm.moment = order.moment;
+                  if (order.orderStatus === 1){
+                      orderVm.orderStatus = "WAITING_PAYMENT"
+                  }
+                  if (order.orderStatus === 2){
+                    orderVm.orderStatus = "PAID"
+                  }
+                  if (order.orderStatus === 3){
+                    orderVm.orderStatus = "SHIPPED"
+                  }
+                  if (order.orderStatus === 4){
+                    orderVm.orderStatus = "DELIVERED"
+                  }
+                  if (order.orderStatus === 5){
+                    orderVm.orderStatus = "CANCELED"
+                  }
+                  this.orders.push(orderVm);
+        });
+
+      });
   }
 
 }
