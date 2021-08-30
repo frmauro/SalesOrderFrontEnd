@@ -10,7 +10,9 @@ import { Order } from './models/Order';
   providedIn: 'root',
 })
 export class OrderService {
-  private orderUrl = 'http://localhost:8070/orders/'; // URL to web api
+
+  //private orderUrl = 'http://localhost:8070/orders/'; // URL to web api
+  private orderUrl = 'http://192.168.49.2:31007/orders/'; // URL to web api cluster minikube
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),

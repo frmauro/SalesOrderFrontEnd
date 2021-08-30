@@ -31,3 +31,6 @@ docker run --name salesorderfrentend -d -p 8086:80 --link orderapi salesorderfro
 
 ## command for build an image
 docker build --tag salesorderfrontend .
+
+## command CURL via POST (returnByEmailAndPassword)
+curl -X POST -H "Content-Type: application/json" -d '{"id": "1", "email": "frmauro8@gmail.com", "password": "123", "token": ""}' http://192.168.49.2:31007/users/

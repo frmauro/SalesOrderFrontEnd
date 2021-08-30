@@ -11,7 +11,8 @@ import { Product } from "./models/Product";
 })
 export class ProductService {
 
-  private productsUrl = 'http://localhost:8070/products';  // URL to web api
+  //private productsUrl = 'http://localhost:8070/products';  // URL to web api
+  private productsUrl = 'http://192.168.49.2:31007/products'; // URL to web api cluster minikube
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -53,7 +54,7 @@ updateAmount(products: Product[]): Observable<Product[]> {
       //this.messageService.add(`orderService: ${message}`);
       console.log(`productService: ${message}`);
     }
-  
+
     /**
      * Handle Http operation that failed.
      * Let the app continue.
@@ -64,10 +65,10 @@ updateAmount(products: Product[]): Observable<Product[]> {
       return (error: any): Observable<T> => {
         // TODO: send the error to remote logging infrastructure
         console.error(error); // log to console instead
-  
+
         // TODO: better job of transforming error for user consumption
         this.log(`${operation} failed: ${error.message}`);
-  
+
         // Let the app keep running by returning an empty result.
         return of(result as T);
       };

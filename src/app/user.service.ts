@@ -14,7 +14,8 @@ export class UserService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
-  private usersUrl = 'http://localhost:8070';  // URL to web api
+  //private usersUrl = 'http://localhost:8070';  // URL to web api
+  private usersUrl = 'http://192.168.49.2:31007'; // URL to web api cluster minikube
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
