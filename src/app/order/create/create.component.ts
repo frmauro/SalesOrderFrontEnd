@@ -17,7 +17,7 @@ export class CreateComponent implements OnInit {
   products: Product[] = [];
 
   constructor(
-    private formBuilder: FormBuilder, 
+    private formBuilder: FormBuilder,
     private orderService: OrderService,
     private productService: ProductService,
     private location: Location) { }
@@ -37,7 +37,12 @@ export class CreateComponent implements OnInit {
 
   onSubmit() {
     let currentOrder = this.formOrder.value as Order;
-    currentOrder.userId = 1;
+    let usertmp = JSON.parse(localStorage.getItem("currentUser"));
+
+    //currentOrder.userId = 1;
+    currentOrder.userId = usertmp.id;
+    currentOrder.orderStatus = parseInt(currentOrder.orderStatus.toString());
+
     //console.log(currentOrder);
     let items: Array<any> = new Array();
 
@@ -87,5 +92,5 @@ export class CreateComponent implements OnInit {
     this.location.back();
   }
 
-  
+
 }

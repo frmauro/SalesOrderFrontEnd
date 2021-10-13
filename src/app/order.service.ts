@@ -41,7 +41,9 @@ export class OrderService {
   /** POST: add a new order to the server */
 addOrder(order: Order): Observable<Order> {
   return this.http.post<Order>(this.orderUrl, order, this.httpOptions).pipe(
-    tap((newOrder: Order) => this.log(`added order w/ id=${order.id}`)),
+    tap((newOrder: Order) => {
+      this.log(`added order w/ id=${order.id}`);
+    }),
     catchError(this.handleError<Order>('addOrder'))
   );
 }

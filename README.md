@@ -34,3 +34,10 @@ docker build --tag salesorderfrontend .
 
 ## command CURL via POST (returnByEmailAndPassword)
 curl -X POST -H "Content-Type: application/json" -d '{"id": "1", "email": "frmauro8@gmail.com", "password": "123", "token": ""}' http://192.168.49.2:31007/users/
+
+## command CURL via POST (Create)
+curl -X POST -H "Content-Type: application/json" -d '{"id": 0, "description": "Order 005", "orderStatus": 1, "userId": "611aa80245c2ed2212c3ec3d", "items": [{"id": 1, "description": "Product 001", "quantity": 1, "price": 200, "productId": 1}]}' http://192.168.49.2:31007/orders
+
+
+## command to enter in specyfic POD MINIKUBE
+kubectl -n salesorder exec orderdb-6f486668f8-nsfxs -it /bin/bash

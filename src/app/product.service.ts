@@ -42,7 +42,7 @@ export class ProductService {
 updateAmount(products: Product[]): Observable<Product[]> {
   const url = "http://localhost:8070/products";
   let arrProducts = JSON.stringify(products);
-  return this.http.post<Product[]>(url, arrProducts, this.httpOptions).pipe(
+  return this.http.post<Product[]>(this.productsUrl, arrProducts, this.httpOptions).pipe(
     tap((_) => this.log("update amount products")),
     catchError(this.handleError<Product[]>("updateAmount"))
   );
