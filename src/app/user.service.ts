@@ -14,8 +14,9 @@ export class UserService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
+  private usersUrl = 'http://localhost:5158';  // URL to local web apigetway
   //private usersUrl = 'http://localhost:8070';  // URL to web api
-  private usersUrl = 'http://192.168.49.2:31007'; // URL to web api cluster minikube
+  //private usersUrl = 'http://192.168.49.2:31007'; // URL to web api cluster minikube
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -32,7 +33,7 @@ export class UserService {
 
 
   getUserByEmailAndPassword(email: string, password: string): Observable<User> {
-    const url = `${this.usersUrl}/users`;
+    const url = `${this.usersUrl}/findUserByEmailAndPassword`;
     let  user = new User();
     user.email = email;
     user.password = password;
