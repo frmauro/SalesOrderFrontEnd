@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 
 import { Product } from "../../models/Product";
 import { Order } from "../../models/Order";
+import { OrderEditVM } from "../../order/edit/dto/OrderEditVM";
 import { OrderService } from "../../order.service";
 import { ItemStatus } from "../../models/ItemStatus";
 
@@ -17,7 +18,7 @@ import { ItemStatus } from "../../models/ItemStatus";
 export class EditComponent implements OnInit {
   formOrder: FormGroup;
   products: Product[] = [];
-  order: Order;
+  order: OrderEditVM;
 
   listStatus: ItemStatus[] =   [
       new ItemStatus(1, "WAITING_PAYMENT"),
@@ -44,8 +45,8 @@ export class EditComponent implements OnInit {
        //console.log(this.order);
        this.createForm(this.order);
       //console.log(this.formOrder);
-      
-      this.formOrder.controls.listStatus.setValue(this.order.orderStatus);
+
+      this.formOrder.controls.listStatus.setValue(this.order.status);
 
       this.order.items.forEach(item => {
         this.items.push(this.createItem(item.productId.toString(), item.description, item.quantity.toString(), item.productId.toString(), item.price));
@@ -63,11 +64,11 @@ export class EditComponent implements OnInit {
   }
 
 
-  createForm(order: Order){
+  createForm(order: OrderEditVM){
     this.formOrder = this.formBuilder.group({
         id: [order.id],
         description: [order.description],
-        orderStatus: [order.orderStatus],
+        orderStatus: [order.status],
         userId: [order.userId],
         listStatus: [this.listStatus],//this.formBuilder.array([]),
         items: this.formBuilder.array([])
@@ -87,12 +88,12 @@ export class EditComponent implements OnInit {
   get items(): FormArray {
     return this.formOrder.get('items') as FormArray;
   }
-  
+
   onSubmit() {
     let currentOrder = this.formOrder.value as Order;
     //console.log(currentOrder);
     this.orderService.updateOrder(currentOrder).subscribe(() => this.goBack());
-    this.createForm(new Order());
+    this.createForm(new OrderEditVM());
   }
 
   // Choose status using select dropdown

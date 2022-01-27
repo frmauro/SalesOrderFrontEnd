@@ -5,6 +5,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 //import { ORDERS } from './models/mockOrder';
 import { Order } from './models/Order';
+import { OrderEditVM } from './order/edit/dto/OrderEditVM';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,8 @@ import { Order } from './models/Order';
 export class OrderService {
 
   //private orderUrl = 'http://localhost:8070/orders/'; // URL to web api
-  private orderUrl = 'http://192.168.49.2:31007/orders/'; // URL to web api cluster minikube
+  //private orderUrl = 'http://192.168.49.2:31007/orders/'; // URL to web api cluster minikube
+  private orderUrl = 'http://localhost:5158/'; // URL to web api localhost
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -22,25 +24,28 @@ export class OrderService {
 
   getOrders(): Observable<Order[]> {
     //return of(ORDERS);
-    return this.http.get<Order[]>(this.orderUrl).pipe(
+    const url  = `${this.orderUrl}getAllOrders`
+    return this.http.get<Order[]>(url).pipe(
       tap((_) => this.log('fetched orders')),
       catchError(this.handleError<Order[]>('getOrders', []))
     );
   }
 
-  getOrderById(id: number): Observable<Order> {
+  getOrderById(id: number): Observable<OrderEditVM> {
     //let order = ORDERS.find((o) => o.id === id);
     //return of(order);
-    const url = `${this.orderUrl}/${id}`;
-     return this.http.get<Order>(url).pipe(
+    const url = `${this.orderUrl}getOrder/${id}`;
+     return this.http.get<OrderEditVM>(url).pipe(
       tap(_ => this.log(`fetched order id=${id}`)),
-      catchError(this.handleError<Order>(`getOrder id=${id}`))
+      catchError(this.handleError<OrderEditVM>(`getOrder id=${id}`))
      );
   }
 
   /** POST: add a new order to the server */
 addOrder(order: Order): Observable<Order> {
-  return this.http.post<Order>(this.orderUrl, order, this.httpOptions).pipe(
+  const url = `${this.orderUrl}CreateOrder`;
+
+  return this.http.post<Order>(url, order, this.httpOptions).pipe(
     tap((newOrder: Order) => {
       this.log(`added order w/ id=${order.id}`);
     }),
@@ -51,7 +56,9 @@ addOrder(order: Order): Observable<Order> {
 /** PUT: update the order on the server */
 updateOrder(order: Order): Observable<any> {
   //console.log(order);
-  return this.http.put(`${this.orderUrl}/${order.id}`, order, this.httpOptions).pipe(
+  const url = `${this.orderUrl}UpdateOrder/${order.id}`;
+
+  return this.http.put(url, order, this.httpOptions).pipe(
     tap(_ => this.log(`updated order id=${order.id}`)),
     catchError(this.handleError<any>('updateOrder'))
   );
