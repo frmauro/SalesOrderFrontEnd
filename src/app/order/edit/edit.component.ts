@@ -46,7 +46,8 @@ export class EditComponent implements OnInit {
        this.createForm(this.order);
       //console.log(this.formOrder);
 
-      this.formOrder.controls.listStatus.setValue(this.order.status);
+      let codStatus = Number(this.order.status);
+      this.formOrder.controls.listStatus.setValue(1);
 
       this.order.items.forEach(item => {
         this.items.push(this.createItem(item.productId.toString(), item.description, item.quantity.toString(), item.productId.toString(), item.price));
