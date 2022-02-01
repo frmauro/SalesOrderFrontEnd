@@ -31,17 +31,17 @@
         <tbody>
           <tr formArrayName="items" *ngFor="let item of items.controls; let i = index;">
             <div [formGroupName]="i">
-                <th scope="row">
+                <td scope="row">
                   <input type="text" formControlName="id" class="form-control" id="id" placeholder="id" readonly="readonly">
-                </th>
-                <td>
+                </td>
+                <td scope="row">
                   <input type="text" formControlName="description" class="form-control" id="description" placeholder="description" readonly="readonly">
                 </td>
-                <td>
+                <td scope="row">
                     <input type="text" formControlName="quantity" class="form-control" id="quantity" placeholder="quantity">
                 </td>
-                <td>
-                  <button class="btn btn-danger" (click)="deleteProduct(i)">Delete</button> 
+                <td scope="row">
+                  <button class="btn btn-danger" (click)="deleteProduct(i)">Delete</button>
                 </td>
           </div>
           </tr>
@@ -55,7 +55,7 @@
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
     ADD PRODUCT
   </button>
-  
+
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

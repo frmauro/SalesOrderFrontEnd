@@ -42,14 +42,17 @@ export class EditComponent implements OnInit {
     this.orderService.getOrderById(id)
     .subscribe(o => {
       this.order = o;
+      let currentitens = o.items;
+
        //console.log(this.order);
        this.createForm(this.order);
       //console.log(this.formOrder);
 
-      let codStatus = Number(this.order.status);
-      this.formOrder.controls.listStatus.setValue(1);
+      const statuscod = Number(this.order.status);
+      this.formOrder.controls.orderStatus.setValue(statuscod);
+      //this.formOrder.controls.listStatus.setValue({text: "WAITING_PAYMENT", value: 1});
 
-      this.order.items.forEach(item => {
+      currentitens.forEach(item => {
         this.items.push(this.createItem(item.productId.toString(), item.description, item.quantity.toString(), item.productId.toString(), item.price));
        });
        //console.log(this.items);
