@@ -6,7 +6,7 @@
     </div>
     <div class="form-group">
       <label for="status">Status</label>
-      <select class="form-control" id="status" formControlName="orderStatus">
+      <select class="form-control" id="status" formControlName="status">
         <option value="1">WAITING_PAYMENT</option>
         <option value="2">PAID</option>
         <option value="3">SHIPPED</option>
@@ -31,16 +31,16 @@
         <tbody>
           <tr formArrayName="items" *ngFor="let item of items.controls; let i = index;">
             <div [formGroupName]="i">
-                <td scope="row">
+                <th scope="row">
                   <input type="text" formControlName="id" class="form-control" id="id" placeholder="id" readonly="readonly">
-                </td>
-                <td scope="row">
+                </th>
+                <td>
                   <input type="text" formControlName="description" class="form-control" id="description" placeholder="description" readonly="readonly">
                 </td>
-                <td scope="row">
+                <td>
                     <input type="text" formControlName="quantity" class="form-control" id="quantity" placeholder="quantity">
                 </td>
-                <td scope="row">
+                <td>
                   <button class="btn btn-danger" (click)="deleteProduct(i)">Delete</button>
                 </td>
           </div>

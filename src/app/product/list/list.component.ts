@@ -25,7 +25,7 @@ export class ProductsComponent implements OnInit {
     this.productService.getProducts()
         .subscribe(response => {
             //console.log(response);
-            this.products = response["items"] as Product[];
+            this.products = response as Product[];
         });
   }
 

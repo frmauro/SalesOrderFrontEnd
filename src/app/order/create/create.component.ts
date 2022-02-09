@@ -6,6 +6,7 @@ import { Product } from "../../models/Product";
 import { Order } from "../../models/Order";
 import { OrderService } from "../../order.service";
 import { ProductService } from "../../product.service";
+import { UpdateAmountDto } from './dto/updateAcountDto';
 
 @Component({
   selector: 'app-create',
@@ -41,17 +42,14 @@ export class CreateComponent implements OnInit {
 
     //currentOrder.userId = 1;
     currentOrder.userId = usertmp.id;
-    currentOrder.orderStatus = parseInt(currentOrder.orderStatus.toString());
+    //currentOrder.status = currentOrder.status;
 
     //console.log(currentOrder);
-    let items: Array<any> = new Array();
+    let items: Array<UpdateAmountDto> = new Array();
 
     currentOrder.items.forEach(p => {
         let item = {
-          amount : parseInt(p.quantity.toString()),
-          description : "",
-          price : "0",
-          status : "Active",
+          quantity : parseInt(p.quantity.toString()),
           id : parseInt(p.productId.toString())
         };
         items.push(item);
@@ -67,7 +65,7 @@ export class CreateComponent implements OnInit {
   createForm(order: Order){
     this.formOrder = this.formBuilder.group({
         description: [order.description],
-        orderStatus: [order.orderStatus],
+        status: [order.status],
         userId: [order.userId],
         items: this.formBuilder.array([])
     })

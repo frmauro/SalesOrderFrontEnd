@@ -4,6 +4,7 @@ import { Observable, of } from "rxjs";
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { Product } from "./models/Product";
+import { UpdateAmountDto } from './order/create/dto/updateAcountDto';
 //import { PRODUCTS } from "./models/mockProduct";
 
 @Injectable({
@@ -12,7 +13,8 @@ import { Product } from "./models/Product";
 export class ProductService {
 
   //private productsUrl = 'http://localhost:8070/products';  // URL to web api
-  private productsUrl = 'http://192.168.49.2:31007/products'; // URL to web api cluster minikube
+  //private productsUrl = 'http://192.168.49.2:31007/products'; // URL to web api cluster minikube
+  private productsUrl = 'http://localhost:5158/'; // URL to localhost apigetway
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -21,8 +23,9 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   getProducts(): Observable<Product[]> {
+    const url =   `${this.productsUrl}GetAllProduct`;
     //return of(PRODUCTS);
-    return this.http.get<Product[]>(this.productsUrl).pipe(
+    return this.http.get<Product[]>(url).pipe(
       tap((_) => this.log('fetched products')),
       catchError(this.handleError<Product[]>('getProducts', []))
     );
@@ -39,12 +42,12 @@ export class ProductService {
   }
 
     /** POST: add a new order to the server */
-updateAmount(products: Product[]): Observable<Product[]> {
-  const url = "http://localhost:8070/products";
+updateAmount(products: UpdateAmountDto[]): Observable<UpdateAmountDto[]> {
+  const url =   `${this.productsUrl}UpdateAmount`;
   let arrProducts = JSON.stringify(products);
-  return this.http.post<Product[]>(this.productsUrl, arrProducts, this.httpOptions).pipe(
+  return this.http.post<UpdateAmountDto[]>(url, arrProducts, this.httpOptions).pipe(
     tap((_) => this.log("update amount products")),
-    catchError(this.handleError<Product[]>("updateAmount"))
+    catchError(this.handleError<UpdateAmountDto[]>("updateAmount"))
   );
 }
 

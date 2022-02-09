@@ -26,19 +26,19 @@ export class ListComponent implements OnInit {
             orderVm.description = order.description;
             orderVm.id = order.id.toString();
             orderVm.moment = order.moment;
-                  if (order.orderStatus === 1){
+                  if (order.status === 1){
                       orderVm.orderStatus = "WAITING_PAYMENT"
                   }
-                  if (order.orderStatus === 2){
+                  if (order.status === 2){
                     orderVm.orderStatus = "PAID"
                   }
-                  if (order.orderStatus === 3){
+                  if (order.status === 3){
                     orderVm.orderStatus = "SHIPPED"
                   }
-                  if (order.orderStatus === 4){
+                  if (order.status === 4){
                     orderVm.orderStatus = "DELIVERED"
                   }
-                  if (order.orderStatus === 5){
+                  if (order.status === 5){
                     orderVm.orderStatus = "CANCELED"
                   }
                   this.orders.push(orderVm);

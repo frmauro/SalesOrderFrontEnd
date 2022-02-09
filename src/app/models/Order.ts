@@ -5,7 +5,7 @@ export class Order{
     id: number;
     description: string;
     moment: string;
-    orderStatus: number;
+    status: number;
     userId: number;
     items: Item[];
 }
