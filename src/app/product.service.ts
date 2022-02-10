@@ -44,8 +44,11 @@ export class ProductService {
     /** POST: add a new order to the server */
 updateAmount(products: UpdateAmountDto[]): Observable<UpdateAmountDto[]> {
   const url =   `${this.productsUrl}UpdateAmount`;
-  let arrProducts = JSON.stringify(products);
-  return this.http.post<UpdateAmountDto[]>(url, arrProducts, this.httpOptions).pipe(
+  let dto = {
+    items: products
+  };
+  let dtojson = JSON.stringify(dto);
+  return this.http.post<UpdateAmountDto[]>(url, dtojson, this.httpOptions).pipe(
     tap((_) => this.log("update amount products")),
     catchError(this.handleError<UpdateAmountDto[]>("updateAmount"))
   );
