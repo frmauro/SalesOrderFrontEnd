@@ -72,7 +72,7 @@ export class EditComponent implements OnInit {
     this.formOrder = this.formBuilder.group({
         id: [order.id],
         description: [order.description],
-        orderStatus: [order.status],
+        status: [order.status],
         userId: [order.userId],
         listStatus: [this.listStatus],//this.formBuilder.array([]),
         items: this.formBuilder.array([])

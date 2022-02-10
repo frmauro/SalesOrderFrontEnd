@@ -34,7 +34,7 @@ export class OrderService {
   getOrderById(id: number): Observable<OrderEditVM> {
     //let order = ORDERS.find((o) => o.id === id);
     //return of(order);
-    const url = `${this.orderUrl}getOrder/${id}`;
+    const url = `${this.orderUrl}GetOrder/${id}`;
      return this.http.get<OrderEditVM>(url).pipe(
       tap(_ => this.log(`fetched order id=${id}`)),
       catchError(this.handleError<OrderEditVM>(`getOrder id=${id}`))

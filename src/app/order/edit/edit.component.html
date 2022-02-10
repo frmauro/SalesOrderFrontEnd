@@ -5,7 +5,7 @@
     </div>
     <div class="form-group">
       <label for="status">Status</label>
-      <select formControlName="orderStatus" (change)="changeStatus($event)" class="form-control" id="listStatus"  >
+      <select formControlName="status" (change)="changeStatus($event)" class="form-control" id="listStatus"  >
         <option *ngFor="let item of listStatus" [ngValue]="item.value" > {{item.text}} </option>
       </select>
     </div>
@@ -33,7 +33,7 @@
                   <input type="text" formControlName="quantity" class="form-control" id="quantity" placeholder="quantity">
               </td>
               <td>
-                <button class="btn btn-danger" (click)="deleteProduct(i)">Delete</button> 
+                <button class="btn btn-danger" (click)="deleteProduct(i)">Delete</button>
               </td>
         </div>
         </tr>
