@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Location } from "@angular/common";
 
@@ -21,6 +22,7 @@ export class CreateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private orderService: OrderService,
     private productService: ProductService,
+    private route: Router,
     private location: Location) { }
 
   ngOnInit(): void {
@@ -50,7 +52,8 @@ export class CreateComponent implements OnInit {
     currentOrder.items.forEach(p => {
         let item = {
           quantity : parseInt(p.quantity.toString()),
-          id : parseInt(p.productId.toString())
+          id : parseInt(p.productId.toString()),
+          isSum: false
         };
         items.push(item);
     });
@@ -87,7 +90,8 @@ export class CreateComponent implements OnInit {
   }
 
   goBack(): void {
-    this.location.back();
+    //this.location.back();
+    this.route.navigate(['/orders']);
   }
 
 
