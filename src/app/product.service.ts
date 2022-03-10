@@ -14,7 +14,8 @@ export class ProductService {
 
   //private productsUrl = 'http://localhost:8070/products';  // URL to web api
   //private productsUrl = 'http://192.168.49.2:31007/products'; // URL to web api cluster minikube
-  private productsUrl = 'http://localhost:5158/'; // URL to localhost apigetway
+  //private productsUrl = 'http://localhost:5158/'; // URL to localhost apigetway
+  private productsUrl = 'http://salesorder.com/'; // URL to cluster minikube apigetway
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -34,7 +35,7 @@ export class ProductService {
   getProductById(id: number): Observable<Product> {
     //let order = ORDERS.find((o) => o.id === id);
     //return of(order);
-    const url = `${this.productsUrl}/${id}`;
+    const url = `${this.productsUrl}GetProductById/${id}`;
      return this.http.get<Product>(url).pipe(
       tap(_ => this.log(`fetched product id=${id}`)),
       catchError(this.handleError<Product>(`getProduct id=${id}`))
