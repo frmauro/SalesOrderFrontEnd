@@ -14,7 +14,8 @@ export class UserService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
-  private usersUrl = 'http://salesorder.com';  // URL to apigetway cluster minikube
+  private usersUrl = 'http://localhost:5000';  // URL to apigetway TEST enviroment
+  //private usersUrl = 'http://salesorder.com';  // URL to apigetway cluster minikube
   //private usersUrl = 'http://localhost:5158';  // URL to local web apigetway
   //private usersUrl = 'http://localhost:8070';  // URL to web api
   //private usersUrl = 'http://192.168.49.2:31007'; // URL to web api cluster minikube
