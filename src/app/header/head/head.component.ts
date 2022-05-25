@@ -11,12 +11,14 @@ import { User } from "../../models/User";
 })
 export class HeadComponent implements OnInit {
   currentUser: User;
+  currentDate=new Date();
 
   constructor(private router: Router, private userService: UserService) {
       this.userService.currentUser.subscribe(x => this.currentUser = x);
    }
 
   ngOnInit(): void {
+
   }
 
   logout() {

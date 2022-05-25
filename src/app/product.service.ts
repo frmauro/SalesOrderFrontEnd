@@ -17,7 +17,7 @@ export class ProductService {
   //private productsUrl = 'http://localhost:5158/'; // URL to localhost apigetway
   //private productsUrl = 'http://salesorder.com/'; // URL to cluster minikube apigetway
   //private productsUrl = 'http://salesorder.com/'; // URL to cluster minikube apigetway
-  private productsUrl = 'http://localhost:5000';  // URL to apigetway TEST enviroment
+  private productsUrl = 'http://localhost:5000/';  // URL to apigetway TEST enviroment
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
