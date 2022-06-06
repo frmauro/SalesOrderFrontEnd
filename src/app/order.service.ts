@@ -6,17 +6,14 @@ import { catchError, map, tap } from 'rxjs/operators';
 //import { ORDERS } from './models/mockOrder';
 import { Order } from './models/Order';
 import { OrderEditVM } from './order/edit/dto/OrderEditVM';
+import  config  from "./config/config.json";
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrderService {
 
-  //private orderUrl = 'http://localhost:8070/orders/'; // URL to web api
-  //private orderUrl = 'http://192.168.49.2:31007/orders/'; // URL to web api cluster minikube
-  //private orderUrl = 'http://localhost:5158/'; // URL to web api localhost
-  //private orderUrl = 'http://salesorder.com/'; // URL to apigetway cluster minikube
-  private orderUrl = 'http://localhost:5000/'; // URL to apigetway TEST enviroment
+  private orderUrl = config.orderurlapi; // URL to apigetway TEST enviroment
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),

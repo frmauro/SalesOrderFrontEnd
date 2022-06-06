@@ -41,3 +41,29 @@ curl -X POST -H "Content-Type: application/json" -d '{"id": 0, "description": "O
 
 ## command to enter in specyfic POD MINIKUBE
 kubectl -n salesorder exec orderdb-6f486668f8-nsfxs -it /bin/bash
+
+
+## types urls api user
+private usersUrl = 'http://localhost:5000';  // URL to apigetway TEST enviroment
+  //private usersUrl = 'http://salesorder.com';  // URL to apigetway cluster minikube
+  //private usersUrl = 'http://localhost:5158';  // URL to local web apigetway
+  //private usersUrl = 'http://localhost:8070';  // URL to web api
+  //private usersUrl = 'http://192.168.49.2:31007'; // URL to web api cluster minikube
+
+## types urls api product
+//private productsUrl = 'http://localhost:8070/products';  // URL to web api
+  //private productsUrl = 'http://192.168.49.2:31007/products'; // URL to web api cluster minikube
+  //private productsUrl = 'http://localhost:5158/'; // URL to localhost apigetway
+  //private productsUrl = 'http://salesorder.com/'; // URL to cluster minikube apigetway
+  //private productsUrl = 'http://salesorder.com/'; // URL to cluster minikube apigetway
+  private productsUrl = 'http://localhost:5000/';  // URL to apigetway TEST enviroment
+
+
+## types urls api order
+  //private orderUrl = 'http://localhost:8070/orders/'; // URL to web api
+  //private orderUrl = 'http://192.168.49.2:31007/orders/'; // URL to web api cluster minikube
+  //private orderUrl = 'http://localhost:5158/'; // URL to web api localhost
+  //private orderUrl = 'http://salesorder.com/'; // URL to apigetway cluster minikube
+  private orderUrl = 'http://localhost:5000/'; // URL to apigetway TEST enviroment
+
+

@@ -6,18 +6,14 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Product } from "./models/Product";
 import { UpdateAmountDto } from './order/create/dto/updateAcountDto';
 //import { PRODUCTS } from "./models/mockProduct";
+import  config  from "./config/config.json";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  //private productsUrl = 'http://localhost:8070/products';  // URL to web api
-  //private productsUrl = 'http://192.168.49.2:31007/products'; // URL to web api cluster minikube
-  //private productsUrl = 'http://localhost:5158/'; // URL to localhost apigetway
-  //private productsUrl = 'http://salesorder.com/'; // URL to cluster minikube apigetway
-  //private productsUrl = 'http://salesorder.com/'; // URL to cluster minikube apigetway
-  private productsUrl = 'http://localhost:5000/';  // URL to apigetway TEST enviroment
+  private productsUrl = config.producturlapi; // URL to apigetway TEST enviroment
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

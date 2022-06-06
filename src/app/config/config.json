@@ -1,0 +1,5 @@
+{
+  "userurlapi": "http://localhost:5000",
+  "producturlapi": "http://localhost:5000/",
+  "orderurlapi": "http://localhost:5000/"
+}

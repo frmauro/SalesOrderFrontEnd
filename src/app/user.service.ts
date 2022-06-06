@@ -5,6 +5,7 @@ import { Observable, of, BehaviorSubject } from "rxjs";
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { User } from "./models/User";
+import  config  from "./config/config.json";
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +15,7 @@ export class UserService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
-  private usersUrl = 'http://localhost:5000';  // URL to apigetway TEST enviroment
-  //private usersUrl = 'http://salesorder.com';  // URL to apigetway cluster minikube
-  //private usersUrl = 'http://localhost:5158';  // URL to local web apigetway
-  //private usersUrl = 'http://localhost:8070';  // URL to web api
-  //private usersUrl = 'http://192.168.49.2:31007'; // URL to web api cluster minikube
+  private usersUrl = config.userurlapi; // URL to apigetway TEST enviroment
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
